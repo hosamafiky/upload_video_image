@@ -26,10 +26,7 @@ class VideoWidget extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: AspectRatio(
-                aspectRatio: value.aspectRatio,
-                child: VideoPlayer(media.videoController!),
-              ),
+              child: VideoPlayer(media.videoController!),
             ),
             Center(
               child: IconButton(
