@@ -60,32 +60,41 @@ class MediaListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100,
+    return Container(
+      height: 130,
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), width: 2),
+          bottom: BorderSide(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5), width: 2),
+        ),
+      ),
       child: ValueListenableBuilder<List<Media>>(
         valueListenable: mediaList,
         builder: (context, mediaList, _) {
           return ListView.separated(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             scrollDirection: Axis.horizontal,
             separatorBuilder: (context, index) => const SizedBox(width: 10),
             itemCount: mediaList.length + 1,
             itemBuilder: (context, index) {
               if (index == mediaList.length) {
-                return Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Theme.of(context).colorScheme.onSurface, width: 2),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: (100 - 40) / 2),
                   child: IconButton(
+                    style: IconButton.styleFrom(
+                      backgroundColor: const Color(0xFFBE1823),
+                      foregroundColor: Colors.white,
+                      iconSize: 20,
+                      fixedSize: const Size(24, 24),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    ),
                     icon: const Icon(Icons.add),
                     onPressed: () => uploadMedia(context),
                   ),
                 );
               }
               final media = mediaList[index];
-
               return Stack(
                 clipBehavior: Clip.none,
                 children: [

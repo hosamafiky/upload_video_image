@@ -13,8 +13,7 @@ class Media {
     required this.file,
   }) : videoController = VideoPlayerController.file(file)
           ..initialize()
-          ..play()
-          ..setPlaybackSpeed(2.0);
+          ..setVolume(0);
 
   bool get isVideo => file.path.toLowerCase().endsWith('.mp4');
   bool get hasExceededLimit => videoController!.value.duration.inSeconds > 60;

@@ -36,8 +36,8 @@ class VideoWidget extends StatelessWidget {
                 icon: Icon(value.isPlaying ? Icons.pause : Icons.play_arrow),
                 iconSize: 50,
                 color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
-                onPressed: () {
-                  media.videoController!.setPlaybackSpeed(1);
+                onPressed: () async {
+                  await media.videoController!.setPlaybackSpeed(1);
                   if (value.isPlaying) {
                     media.videoController!.pause();
                   } else {
