@@ -61,18 +61,27 @@ class MediaListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200,
+      height: 100,
       child: ValueListenableBuilder<List<Media>>(
         valueListenable: mediaList,
         builder: (context, mediaList, _) {
-          return ListView.builder(
+          return ListView.separated(
             scrollDirection: Axis.horizontal,
+            separatorBuilder: (context, index) => const SizedBox(width: 10),
             itemCount: mediaList.length + 1,
             itemBuilder: (context, index) {
               if (index == mediaList.length) {
-                return IconButton(
-                  icon: const Icon(Icons.add),
-                  onPressed: () => uploadMedia(context),
+                return Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Theme.of(context).colorScheme.onSurface, width: 2),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: IconButton(
+                    icon: const Icon(Icons.add),
+                    onPressed: () => uploadMedia(context),
+                  ),
                 );
               }
               final media = mediaList[index];
@@ -81,10 +90,12 @@ class MediaListWidget extends StatelessWidget {
                 clipBehavior: Clip.none,
                 children: [
                   Container(
-                    width: 200,
-                    height: 200,
+                    width: 100,
+                    height: 100,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Theme.of(context).colorScheme.onSurface),
+                      border: Border.all(color: Theme.of(context).colorScheme.onSurface, width: 2),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     child: media.isVideo
                         ? VideoWidget(
@@ -108,6 +119,9 @@ class MediaListWidget extends StatelessWidget {
                     top: -10,
                     start: -10,
                     child: IconButton(
+                      style: IconButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                      ),
                       icon: const Icon(Icons.close),
                       onPressed: () => removeMedia(index),
                     ),

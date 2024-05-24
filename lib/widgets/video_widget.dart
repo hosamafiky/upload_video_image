@@ -24,14 +24,20 @@ class VideoWidget extends StatelessWidget {
         }
         return Stack(
           children: [
-            AspectRatio(
-              aspectRatio: value.aspectRatio,
-              child: VideoPlayer(media.videoController!),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: AspectRatio(
+                aspectRatio: value.aspectRatio,
+                child: VideoPlayer(media.videoController!),
+              ),
             ),
             Center(
               child: IconButton(
                 icon: Icon(value.isPlaying ? Icons.pause : Icons.play_arrow),
+                iconSize: 50,
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
                 onPressed: () {
+                  media.videoController!.setPlaybackSpeed(1);
                   if (value.isPlaying) {
                     media.videoController!.pause();
                   } else {
@@ -41,10 +47,10 @@ class VideoWidget extends StatelessWidget {
               ),
             ),
             PositionedDirectional(
-              bottom: 0,
-              end: 0,
+              bottom: 5,
+              end: 5,
               child: Text(
-                value.duration.format,
+                value.isPlaying ? value.position.format : value.duration.format,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onSurface,
                   backgroundColor: Theme.of(context).colorScheme.surface,
